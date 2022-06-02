@@ -1,1 +1,1 @@
-# spoiler-free
+# Cool
