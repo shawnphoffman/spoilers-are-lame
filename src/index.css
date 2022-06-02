@@ -10,23 +10,13 @@ html body {
 	padding: 0;
 	margin: 0;
 	width: 100vw;
-	font-family: 'Open Sans', sans-serif;
 	box-sizing: border-box;
 }
 
 #root {
 	width: 100%;
 	height: 100%;
-	max-width: 1200px;
+	max-width: 800px;
 	margin-left: auto;
 	margin-right: auto;
-}
-
-@media print {
-	html,
-	html body,
-	#root {
-		background: none !important;
-		height: auto;
-	}
 }

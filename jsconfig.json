@@ -1,14 +1,14 @@
 {
 	"compilerOptions": {
-		"baseUrl": "src",
-		"target": "es2017"
+		"jsx": "react-jsx",
+		"checkJs": true,
+		"baseUrl": "./src"
 	},
 	"include": [
-		"src"
+		"./src/**/*"
 	],
 	"exclude": [
-		"node_modules/**/*",
-		"dist/*",
-		"package.json"
+		"./node_modules",
+		"./dist"
 	]
 }
