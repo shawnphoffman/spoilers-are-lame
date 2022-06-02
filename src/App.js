@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import * as Sentry from '@sentry/react'
 import { styled } from 'linaria/react'
@@ -34,6 +34,11 @@ function App() {
 	// Location
 	const [searchParams, setSearchParams] = useSearchParams()
 
+	//
+	const shareDisabled = useMemo(() => {
+		return !(original && obfuscated)
+	}, [obfuscated, original])
+
 	// Handlers
 	const handleOriginalChange = useCallback(e => {
 		const value = e.target.value
@@ -49,6 +54,14 @@ function App() {
 		const params = { t: obfuscated }
 		setSearchParams(params)
 	}, [obfuscated, setSearchParams])
+
+	const handleCreateClick = useCallback(() => {
+		setSearchParams({})
+		setInboundSpoiler('')
+		setDecryptedSpoiler('')
+		setOriginal('')
+		setObfuscated('')
+	}, [setSearchParams])
 
 	// Effects
 	useEffect(() => {
@@ -66,24 +79,32 @@ function App() {
 		setObfuscated(temp)
 	}, [original])
 
+	console.log({ shareDisabled })
+
 	return (
 		<Sentry.ErrorBoundary fallback={<div>Uh Oh!</div>}>
 			<ThemeProvider>
 				<Container className={themeClass}>
 					<h1>Spoilers are Lame</h1>
-					{inboundSpoiler && (
+					{inboundSpoiler ? (
 						<>
-							<h2>Inbound spoiler...</h2>
-							<textarea value={inboundSpoiler} readOnly />
+							<h2>Incoming spoiler...</h2>
+							<textarea value={inboundSpoiler} readOnly key="one" />
 							<Section>⬆️ ⬇️</Section>
-							<textarea value={decryptedSpoiler} readOnly />
+							<textarea value={decryptedSpoiler} readOnly key="two" />
+							<button onClick={handleCreateClick}>Create your own...</button>
+						</>
+					) : (
+						<>
+							<h2>Create your own</h2>
+							<textarea defaultValue={original} onChange={handleOriginalChange} key="three" />
+							<Section>⬆️ ⬇️</Section>
+							<textarea defaultValue={obfuscated} onChange={handleObfuscatedChange} key="four" />
+							<button onClick={handleShareClick} disabled={shareDisabled}>
+								Share
+							</button>
 						</>
 					)}
-					<h2>Create your own</h2>
-					<textarea defaultValue={original} onChange={handleOriginalChange} />
-					<Section>⬆️ ⬇️</Section>
-					<textarea defaultValue={obfuscated} onChange={handleObfuscatedChange} />
-					<button onClick={handleShareClick}>Share</button>
 				</Container>
 			</ThemeProvider>
 		</Sentry.ErrorBoundary>
