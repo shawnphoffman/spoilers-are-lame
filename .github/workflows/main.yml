@@ -1,0 +1,37 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        with:
+          persist-credentials: false
+
+      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+        run: |
+          yarn install
+          yarn build
+        env:
+          IMAGE_INLINE_SIZE_LIMIT: 0
+          # REACT_APP_PANELBEAR_SITE_ID: ${{ secrets.REACT_APP_PANELBEAR_SITE_ID }}
+          # REACT_APP_FIREBASE_apiKey: ${{ secrets.REACT_APP_FIREBASE_apiKey }}
+          # REACT_APP_FIREBASE_authDomain: ${{ secrets.REACT_APP_FIREBASE_authDomain }}
+          # REACT_APP_FIREBASE_projectId: ${{ secrets.REACT_APP_FIREBASE_projectId }}
+          # REACT_APP_FIREBASE_storageBucket: ${{ secrets.REACT_APP_FIREBASE_storageBucket }}
+          # REACT_APP_FIREBASE_messagingSenderId: ${{ secrets.REACT_APP_FIREBASE_messagingSenderId }}
+          # REACT_APP_FIREBASE_appId: ${{ secrets.REACT_APP_FIREBASE_appId }}
+          # REACT_APP_FIREBASE_databaseURL: ${{ secrets.REACT_APP_FIREBASE_databaseURL }}
+          # REACT_APP_RECAPTCHA_SITE_KEY: ${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: build # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch
