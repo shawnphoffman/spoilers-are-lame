@@ -98,7 +98,7 @@ function App() {
 		<Sentry.ErrorBoundary fallback={<div>Uh Oh!</div>}>
 			<ThemeProvider>
 				<Container className={themeClass}>
-					<h1>Spoilers are Lame</h1>
+					<h1>Spoilers are lame</h1>
 					{inboundSpoiler ? (
 						<>
 							<h2>Incoming spoiler...</h2>
@@ -109,14 +109,8 @@ function App() {
 						</>
 					) : (
 						<>
-							<h2>Create your own</h2>
-							<TextArea
-								placeholder="Enter the text you want to cipher"
-								// defaultValue={original}
-								onChange={handleOriginalChange}
-								value={original}
-								key="three"
-							/>
+							<h2>Create your own...</h2>
+							<TextArea placeholder="Enter the text you want to cipher" onChange={handleOriginalChange} value={original} key="three" />
 							<Section>⬆️ ⬇️</Section>
 							<TextArea placeholder="Ciphered text will appear here" readOnly value={obfuscated} key="four" onFocus={handleFocusClick} />
 							<div>
