@@ -6,7 +6,7 @@ const Wrapper = styled.div`
 	flex-direction: row;
 	position: relative;
 	background-color: var(--inputBg);
-	border-color: none;
+	border-color: var(--transparent);
 	border-width: 3px;
 	border-style: solid;
 	transition-delay: 0s;
