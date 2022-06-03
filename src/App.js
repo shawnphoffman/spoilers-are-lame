@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import * as Sentry from '@sentry/react'
 import { styled } from 'linaria/react'
 
+import TextArea from 'components/TextArea'
 import ThemeProvider from 'context/ThemeContext'
 import { useDeviceTheme } from 'hooks/useDeviceTheme'
 import themeConditional from 'hooks/useThemeConditional'
@@ -89,17 +90,17 @@ function App() {
 					{inboundSpoiler ? (
 						<>
 							<h2>Incoming spoiler...</h2>
-							<textarea value={inboundSpoiler} readOnly key="one" />
+							<TextArea value={inboundSpoiler} readOnly key="one" />
 							<Section>⬆️ ⬇️</Section>
-							<textarea value={decryptedSpoiler} readOnly key="two" />
+							<TextArea value={decryptedSpoiler} readOnly key="two" />
 							<button onClick={handleCreateClick}>Create your own...</button>
 						</>
 					) : (
 						<>
 							<h2>Create your own</h2>
-							<textarea defaultValue={original} onChange={handleOriginalChange} key="three" />
+							<TextArea defaultValue={original} onChange={handleOriginalChange} key="three" />
 							<Section>⬆️ ⬇️</Section>
-							<textarea defaultValue={obfuscated} onChange={handleObfuscatedChange} key="four" />
+							<TextArea defaultValue={obfuscated} onChange={handleObfuscatedChange} key="four" />
 							<button onClick={handleShareClick} disabled={shareDisabled}>
 								Share
 							</button>
