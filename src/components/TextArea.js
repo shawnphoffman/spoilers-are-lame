@@ -1,4 +1,5 @@
-import { memo } from 'react'
+// @ts-nocheck
+import { memo, useCallback } from 'react'
 import { styled } from 'linaria/react'
 
 const Wrapper = styled.div`
@@ -19,11 +20,11 @@ const Wrapper = styled.div`
 	width: 100%;
 
 	&:hover {
-		opacity: 0.8;
+		opacity: ${p => (p.readOnly ? 1 : 0.8)};
 	}
 
 	&:focus-within {
-		border-color: var(--inputFocus);
+		border-color: ${p => (p.readOnly ? 'var(--linkAlt)' : 'var(--inputFocus)')};
 		border-width: 3px;
 		border-style: solid;
 		opacity: 1;
@@ -45,6 +46,7 @@ const NativeControl = styled.textarea`
 	background-color: var(--transparent);
 	opacity: 1;
 	flex: 1;
+	user-select: all;
 
 	&:focus {
 		outline-style: none;
@@ -57,9 +59,20 @@ const NativeControl = styled.textarea`
 `
 
 const TextArea = props => {
+	const handleFocus = useCallback(
+		e => {
+			if (props.readOnly) {
+				e.target.select()
+			}
+			if (props.onFocus) {
+				props.onFocus(e)
+			}
+		},
+		[props]
+	)
 	return (
-		<Wrapper>
-			<NativeControl {...props} />
+		<Wrapper readOnly={props.readOnly}>
+			<NativeControl {...props} onFocus={handleFocus} />
 		</Wrapper>
 	)
 }

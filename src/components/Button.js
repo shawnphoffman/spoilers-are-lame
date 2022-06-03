@@ -4,6 +4,8 @@ import { styled } from 'linaria/react'
 const Wrapper = styled.div`
 	display: flex;
 	justify-content: center;
+	margin-top: 16px;
+	margin-bottom: 16px;
 `
 
 const StyledButton = styled.button`
@@ -15,6 +17,7 @@ const StyledButton = styled.button`
 	text-align: center;
 	display: inline-block;
 	width: 100%;
+	transition: all 0.25s;
 
 	&:hover {
 		color: var(--inputBg);
@@ -23,14 +26,13 @@ const StyledButton = styled.button`
 	text-decoration: none;
 	cursor: pointer;
 
-	margin-top: 16px;
-	margin-bottom: 16px;
 	font-size: 20px;
 	padding: 8px 16px;
 	min-width: 175px;
 
 	&:disabled {
 		background: var(--inactive);
+		opacity: 0.5;
 	}
 `
 

@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import * as Sentry from '@sentry/react'
+import copy from 'copy-to-clipboard'
 import { styled } from 'linaria/react'
 
 import Button from 'components/Button'
@@ -29,6 +30,7 @@ function App() {
 	const themeClass = themeConditional(theme)
 
 	// State
+	const [isCopied, setIsCopied] = useState(false)
 	const [inboundSpoiler, setInboundSpoiler] = useState('')
 	const [decryptedSpoiler, setDecryptedSpoiler] = useState('')
 	const [original, setOriginal] = useState('')
@@ -53,11 +55,12 @@ function App() {
 	}, [])
 
 	const handleShareClick = useCallback(() => {
-		const params = { t: obfuscated }
-		setSearchParams(params)
-	}, [obfuscated, setSearchParams])
+		const url = `${window.location.origin}/?t=${obfuscated}`
+		copy(url)
+		setIsCopied(true)
+	}, [obfuscated])
 
-	const handleCreateClick = useCallback(() => {
+	const handleReset = useCallback(() => {
 		setSearchParams({})
 		setInboundSpoiler('')
 		setDecryptedSpoiler('')
@@ -81,6 +84,16 @@ function App() {
 		setObfuscated(temp)
 	}, [original])
 
+	useEffect(() => {
+		let t
+		if (isCopied) {
+			t = setTimeout(() => {
+				setIsCopied(false)
+			}, 3000)
+		}
+		return () => t
+	}, [isCopied])
+
 	return (
 		<Sentry.ErrorBoundary fallback={<div>Uh Oh!</div>}>
 			<ThemeProvider>
@@ -89,31 +102,31 @@ function App() {
 					{inboundSpoiler ? (
 						<>
 							<h2>Incoming spoiler...</h2>
-							<TextArea value={inboundSpoiler} readOnly key="one" />
+							<TextArea value={inboundSpoiler} readOnly disabled key="one" />
 							<Section>⬆️ ⬇️</Section>
-							<TextArea value={decryptedSpoiler} readOnly key="two" />
-							<Button onClick={handleCreateClick}>Create your own...</Button>
+							<TextArea value={decryptedSpoiler} readOnly disabled key="two" />
+							<Button onClick={handleReset}>Create your own...</Button>
 						</>
 					) : (
 						<>
 							<h2>Create your own</h2>
 							<TextArea
 								placeholder="Enter the text you want to cipher"
-								defaultValue={original}
+								// defaultValue={original}
 								onChange={handleOriginalChange}
+								value={original}
 								key="three"
 							/>
 							<Section>⬆️ ⬇️</Section>
-							<TextArea
-								placeholder="Ciphered text will appear here"
-								readOnly
-								defaultValue={obfuscated}
-								key="four"
-								onFocus={handleFocusClick}
-							/>
-							<Button onClick={handleShareClick} disabled={shareDisabled} fullWidth>
-								Share
-							</Button>
+							<TextArea placeholder="Ciphered text will appear here" readOnly value={obfuscated} key="four" onFocus={handleFocusClick} />
+							<div>
+								<Button onClick={handleShareClick} disabled={shareDisabled} fullWidth>
+									{isCopied ? 'Copied to Clipboard' : 'Copy URL to Clipboard'}
+								</Button>
+								<Button onClick={handleReset} fullWidth>
+									Reset
+								</Button>
+							</div>
 						</>
 					)}
 				</Container>
