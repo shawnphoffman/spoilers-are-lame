@@ -55,7 +55,7 @@ function App() {
 	}, [])
 
 	const handleShareClick = useCallback(() => {
-		const url = `${window.location.origin}/?t=${obfuscated}`
+		const url = `${window.location.origin}/?t=${encodeURI(obfuscated)}`
 		copy(url)
 		setIsCopied(true)
 	}, [obfuscated])
