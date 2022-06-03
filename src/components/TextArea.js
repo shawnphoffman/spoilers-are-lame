@@ -7,7 +7,7 @@ const Wrapper = styled.div`
 	position: relative;
 	background-color: var(--inputBg);
 	border-color: none;
-	border-width: 1px;
+	border-width: 3px;
 	border-style: solid;
 	transition-delay: 0s;
 	transition-duration: 0.2s;
@@ -15,7 +15,6 @@ const Wrapper = styled.div`
 	transition-timing-function: ease-in-out;
 	border-radius: 8px;
 	user-select: none;
-	margin-bottom: 16px;
 	max-width: 1200px;
 	width: 100%;
 
@@ -24,16 +23,16 @@ const Wrapper = styled.div`
 	}
 
 	&:focus-within {
-		border-color: var(--linkActive);
-		box-shadow: 0 0 0 2px var(--inputBg);
+		border-color: var(--inputFocus);
+		/* box-shadow: 0 0 0 2px var(--inputBg); */
 		opacity: 1;
 	}
 `
 
 const NativeControl = styled.textarea`
 	margin: 0;
-	padding: 8px;
-	font-size: 16px;
+	padding: 16px;
+	font-size: 18px;
 	line-height: 1.2;
 	text-align: start;
 	text-indent: 0px;

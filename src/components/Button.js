@@ -1,5 +1,4 @@
 import { memo } from 'react'
-import { Link } from 'react-router-dom'
 import { styled } from 'linaria/react'
 
 const Wrapper = styled.div`
@@ -7,14 +6,15 @@ const Wrapper = styled.div`
 	justify-content: center;
 `
 
-const StyledButton = styled(Link)`
+const StyledButton = styled.button`
+	border: none;
 	color: var(--inputBg);
 	background: var(--linkActive);
-	border: 2px solid var(--inputBorder);
 	font-weight: 700;
 	border-radius: 8px;
 	text-align: center;
 	display: inline-block;
+	width: 100%;
 
 	&:hover {
 		color: var(--inputBg);
@@ -23,21 +23,20 @@ const StyledButton = styled(Link)`
 	text-decoration: none;
 	cursor: pointer;
 
-	margin: 8px;
+	margin-top: 16px;
+	margin-bottom: 16px;
 	font-size: 20px;
 	padding: 8px 16px;
 	min-width: 175px;
 
 	&:disabled {
-		background: green !important;
+		background: var(--inactive);
 	}
 `
 
 const Button = props => {
-	const isLink = !!props.to || !!props.href
-	const isButton = props.type === 'submit'
-
-	const as = isLink ? Link : isButton ? 'button' : 'div'
+	const isLink = !!props.href
+	const as = isLink ? 'a' : 'button'
 	return (
 		<Wrapper onClick={() => {}}>
 			<StyledButton as={as} {...props} />

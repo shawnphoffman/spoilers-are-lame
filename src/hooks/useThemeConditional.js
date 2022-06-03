@@ -7,12 +7,13 @@ const dark = css`
 	--text: #fff;
 	--link: #fff;
 	--linkAlt: #a0a8d9;
-	--linkHover: #00b8d4;
-	--linkActive: #304ffe;
+	--linkHover: #2c40af;
+	--linkActive: #415cf4;
 	--inactive: #333;
 	--transparent: #0000;
 	--inputBg: #fff;
 	--inputBorder: #000;
+	--inputFocus: #41f491;
 
 	color: var(--text);
 `
@@ -24,12 +25,13 @@ const light = css`
 	--text: #000;
 	--link: #333;
 	--linkAlt: #3e498c;
-	--linkHover: #028da2;
+	--linkHover: #2c40af;
 	--linkActive: #304ffe;
 	--inactive: #333;
 	--transparent: #0000;
 	--inputBg: #fff;
 	--inputBorder: #000;
+	--inputFocus: #41f491;
 
 	color: var(--text);
 `

@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import * as Sentry from '@sentry/react'
 import { styled } from 'linaria/react'
 
+import Button from 'components/Button'
 import TextArea from 'components/TextArea'
 import ThemeProvider from 'context/ThemeContext'
 import { useDeviceTheme } from 'hooks/useDeviceTheme'
@@ -12,13 +13,14 @@ import rot13Fast from 'utils/rot'
 const Section = styled.p`
 	display: flex;
 	justify-content: center;
+	margin: 16px;
 `
 
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-	padding: 8px;
+	padding: 16px;
 `
 
 function App() {
@@ -46,9 +48,8 @@ function App() {
 		setOriginal(value)
 	}, [])
 
-	const handleObfuscatedChange = useCallback(e => {
-		const value = e.target.value
-		setObfuscated(value)
+	const handleFocusClick = useCallback(e => {
+		e.target.select()
 	}, [])
 
 	const handleShareClick = useCallback(() => {
@@ -80,8 +81,6 @@ function App() {
 		setObfuscated(temp)
 	}, [original])
 
-	console.log({ shareDisabled })
-
 	return (
 		<Sentry.ErrorBoundary fallback={<div>Uh Oh!</div>}>
 			<ThemeProvider>
@@ -93,17 +92,28 @@ function App() {
 							<TextArea value={inboundSpoiler} readOnly key="one" />
 							<Section>⬆️ ⬇️</Section>
 							<TextArea value={decryptedSpoiler} readOnly key="two" />
-							<button onClick={handleCreateClick}>Create your own...</button>
+							<Button onClick={handleCreateClick}>Create your own...</Button>
 						</>
 					) : (
 						<>
 							<h2>Create your own</h2>
-							<TextArea defaultValue={original} onChange={handleOriginalChange} key="three" />
+							<TextArea
+								placeholder="Enter the text you want to cipher"
+								defaultValue={original}
+								onChange={handleOriginalChange}
+								key="three"
+							/>
 							<Section>⬆️ ⬇️</Section>
-							<TextArea defaultValue={obfuscated} onChange={handleObfuscatedChange} key="four" />
-							<button onClick={handleShareClick} disabled={shareDisabled}>
+							<TextArea
+								placeholder="Ciphered text will appear here"
+								readOnly
+								defaultValue={obfuscated}
+								key="four"
+								onFocus={handleFocusClick}
+							/>
+							<Button onClick={handleShareClick} disabled={shareDisabled} fullWidth>
 								Share
-							</button>
+							</Button>
 						</>
 					)}
 				</Container>
