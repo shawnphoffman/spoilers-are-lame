@@ -24,7 +24,8 @@ const Wrapper = styled.div`
 
 	&:focus-within {
 		border-color: var(--inputFocus);
-		/* box-shadow: 0 0 0 2px var(--inputBg); */
+		border-width: 3px;
+		border-style: solid;
 		opacity: 1;
 	}
 `
