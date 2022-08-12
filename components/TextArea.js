@@ -46,6 +46,7 @@ const NativeControl = styled.textarea`
 	opacity: 1;
 	flex: 1;
 	user-select: all;
+	color: var(--bg);
 
 	&:focus {
 		outline-style: none;
