@@ -1,5 +1,5 @@
 module.exports = {
-	extends: 'react-app',
+	extends: 'next/core-web-vitals',
 	plugins: ['simple-import-sort'],
 	rules: {
 		'simple-import-sort/imports': [
@@ -9,7 +9,7 @@ module.exports = {
 					['^\\u0000'],
 					['^react$', '^react', '^@?\\w'],
 					['^(@root|types|data)(/.*)'],
-					['^(components|utils|context|config|pages|hooks)(/.*)'],
+					['^(components|utils|context|config|pages|hooks|styles)(/.*)'],
 					[('^\\.\\.(?!/?$)', '^\\.\\./?$')],
 					['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
 				],
@@ -17,5 +17,6 @@ module.exports = {
 		],
 		'sort-imports': 'off',
 		'import/order': 'off',
+		'react/no-unescaped-entities': 'warn',
 	},
 }

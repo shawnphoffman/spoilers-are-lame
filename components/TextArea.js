@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { memo, useCallback } from 'react'
 import { styled } from 'linaria/react'
 
