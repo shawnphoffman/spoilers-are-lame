@@ -33,7 +33,7 @@ const Home = () => {
 	}, [])
 
 	const handleShareClick = useCallback(() => {
-		const url = `${window.location.origin}/?t=${encodeURI(obfuscated)}`
+		const url = `${window.location.origin}/?t=${encodeURIComponent(obfuscated)}`
 		copy(url)
 		setIsCopied(true)
 	}, [obfuscated])
